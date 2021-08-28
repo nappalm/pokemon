@@ -1,0 +1,4 @@
+const pages = [
+  'home',
+  'pokemonDetail',
+];
