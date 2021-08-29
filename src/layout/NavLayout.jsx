@@ -1,18 +1,33 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
+import { device } from 'utils/screenSize';
+import { navProps } from 'components/nav/constants';
+import { Nav } from 'components';
 import { UserContextProvider } from '../context/userContext';
-import { Nav } from '../components';
 
 const NavLayoutStyled = styled.div`
-  display: flex;
-  gap: 20px;
+  @media ${device.mobileS} {
+    .nav-layout-content {
+      margin: 0;
+      padding: 100px 20px 20px 20px;
+    }
+  }
+  @media ${device.tablet} {
+    .nav-layout-content {
+      margin-left: ${navProps.baseWith};
+      margin-right: 40px;
+      padding-left: 40px;
+      padding-top: 20px;
+    }
+  }
 `;
 const NavLayout = ({ children }) => {
   const { user } = useContext(UserContextProvider);
 
   return (
     <NavLayoutStyled>
+      {/* 🔰 Nav component */}
       <Nav>
         <Nav.Avatar img={user.img} />
         <Nav.User
@@ -22,6 +37,8 @@ const NavLayout = ({ children }) => {
         />
         <Nav.Logout />
       </Nav>
+
+      {/* 🔰 Render component */}
       <div className="nav-layout-content">
         {children}
       </div>

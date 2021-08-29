@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import UserContext from './context/userContext';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyled from './styles/GlobalStyled';
+import Router from './router';
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyled />
     <UserContext>
-      <App />
+      <Router />
     </UserContext>
   </React.StrictMode>,
   document.getElementById('root'),

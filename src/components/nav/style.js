@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { device } from '../../utils/screenSize';
 
+import { navProps } from './constants';
 // ========================================
 // 🔰 Base nav styled
 // ========================================
@@ -35,7 +36,7 @@ export default styled.div.attrs({
     }
     @media ${device.tablet} {
       margin-left: 0;
-      width: 300px;
+      width: ${navProps.baseWith};
     }
     .nav-menu-logo
     .img-logo {
@@ -46,7 +47,7 @@ export default styled.div.attrs({
   .nav-responsive {
     position: fixed;
     background-color: var(--blue);
-    width: 100%;
+    width: ${navProps.mobileWith};
     padding: 10px 0;
     z-index: 1;
     box-shadow: var(--shadow);

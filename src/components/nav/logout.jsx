@@ -8,7 +8,7 @@ const LogoutStyled = styled.button`
   box-shadow: var(--shadow);
   justify-content: center;
   width: 90%;
-  background-color: rgba(255, 255, 255, 0.3) !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
   border-radius: 6px;
   height: 50px;
   position: absolute;
