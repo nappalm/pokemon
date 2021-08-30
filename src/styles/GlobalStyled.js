@@ -8,6 +8,10 @@ const globalStyled = createGlobalStyle`
     --shadow: rgba(86,108,214,0.15) 0px 2px 8px 0px;
     --border-radius: 16px;
   }
+
+  * {
+    box-sizing: border-box;
+  }
   
   body {
     margin: 0;

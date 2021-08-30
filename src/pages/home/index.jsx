@@ -88,6 +88,9 @@ const Home = () => {
             <PokemonDetail.CardPokemonDetail
               name={currentPokemon?.name}
               type={currentPokemon?.types}
+              weight={currentPokemon?.weight}
+              height={currentPokemon?.height}
+              pokedex={currentPokemon?.id}
               shiny={[
                 currentPokemon?.sprites.front_shiny,
                 currentPokemon?.sprites.back_shiny,

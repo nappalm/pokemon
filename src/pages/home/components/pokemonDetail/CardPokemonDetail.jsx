@@ -43,7 +43,9 @@ const CardPokemonDetailStyled = styled.div`
     }
   }
 `;
-const CardPokemonDetail = ({ name, type, shiny }) => (
+const CardPokemonDetail = ({
+  name, pokedex, height, weight, type, shiny,
+}) => (
   <CardPokemonDetailStyled>
     <Card className="pokemon-card-detail">
       <Typography.HeadLine className="pk-name">
@@ -62,7 +64,7 @@ const CardPokemonDetail = ({ name, type, shiny }) => (
             Pokedex Number
           </Typography.Text>
           <Typography.Text>
-            1
+            {pokedex}
           </Typography.Text>
         </div>
         <div className="pk-prop">
@@ -70,7 +72,7 @@ const CardPokemonDetail = ({ name, type, shiny }) => (
             Height
           </Typography.Text>
           <Typography.Text>
-            7
+            {height}
           </Typography.Text>
         </div>
         <div className="pk-prop">
@@ -78,7 +80,7 @@ const CardPokemonDetail = ({ name, type, shiny }) => (
             Weight
           </Typography.Text>
           <Typography.Text>
-            69
+            {weight}
           </Typography.Text>
         </div>
         <div className="pk-prop">
@@ -106,9 +108,15 @@ CardPokemonDetail.defaultProps = {
   name: '',
   type: [],
   shiny: [],
+  pokedex: '',
+  height: '',
+  weight: '',
 };
 
 CardPokemonDetail.propTypes = {
+  pokedex: PropTypes.number,
+  height: PropTypes.number,
+  weight: PropTypes.number,
   name: PropTypes.string,
   type: PropTypes.arrayOf(PropTypes.object),
   shiny: PropTypes.arrayOf(PropTypes.string),
