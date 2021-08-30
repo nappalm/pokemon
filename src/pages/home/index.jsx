@@ -3,6 +3,9 @@ import InputSearch from 'components/inputSearch';
 import NavLayout from 'layout/NavLayout';
 import { useEffect, useState } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { downloadPokemon } from 'redux/pokemon';
+
 // 🔰 Page components
 import CardPokemon from './components/CardPokemon';
 import PokemonDetail from './components/pokemonDetail';
@@ -15,29 +18,10 @@ import {
 } from './style';
 
 const Home = () => {
+  const pokemons = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   const [currentPokemon, setCurrentPokemon] = useState(null);
-  const [allPokemons, setAllPokemons] = useState([]);
-
-  const getPokemons = async () => {
-    const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20');
-    const data = await res.json();
-
-    function createPokemon(results) {
-      results.forEach(async (pokemon) => {
-        const pokeRes = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
-        const pokeData = await pokeRes.json();
-
-        setAllPokemons((currentList) => [...currentList, pokeData]);
-        await allPokemons.sort((a, b) => a.id - b.id);
-      });
-    }
-
-    createPokemon(data.results);
-  };
-
-  useEffect(() => {
-    getPokemons();
-  }, []);
 
   const onClickPokemon = (pokemon) => {
     setCurrentPokemon(pokemon);
@@ -50,6 +34,10 @@ const Home = () => {
   const onClickBack = () => {
     setCurrentPokemon(null);
   };
+
+  useEffect(() => {
+    dispatch(downloadPokemon());
+  }, []);
 
   return (
     <NavLayout>
@@ -64,7 +52,7 @@ const Home = () => {
         </SearchRowStyled>
 
         <PokemonGridStyled hidden={currentPokemon !== null}>
-          { allPokemons.map((pokemon) => (
+          { pokemons.map((pokemon) => (
             <CardPokemon
               onClick={() => onClickPokemon(pokemon)}
               id={pokemon.id}

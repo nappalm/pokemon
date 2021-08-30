@@ -1,16 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { applyMiddleware, createStore } from 'redux';
+import pokemon from 'redux/pokemon';
+import { Provider } from 'react-redux';
+
+import thunkMiddleware from 'redux-thunk';
+
 import UserContext from './context/userContext';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyled from './styles/GlobalStyled';
 import Router from './router';
 
+const middleware = applyMiddleware(thunkMiddleware);
+const store = createStore(pokemon, middleware);
+
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStyled />
-    <UserContext>
-      <Router />
-    </UserContext>
+    <Provider store={store}>
+      <GlobalStyled />
+      <UserContext>
+        <Router />
+      </UserContext>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

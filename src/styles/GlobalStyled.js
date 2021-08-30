@@ -9,10 +9,6 @@ const globalStyled = createGlobalStyle`
     --border-radius: 16px;
   }
 
-  * {
-    box-sizing: border-box;
-  }
-  
   body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
