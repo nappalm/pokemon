@@ -1,10 +1,13 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-unused-vars */
 import { BackButton } from 'components';
 import InputSearch from 'components/inputSearch';
 import NavLayout from 'layout/NavLayout';
 import { useEffect, useState } from 'react';
 
+// 🔰 Redux hooks
 import { useDispatch, useSelector } from 'react-redux';
-import { downloadPokemon } from 'redux/pokemon';
+import { downloadPokemon, getPokemons } from 'redux/pokemon';
 
 // 🔰 Page components
 import CardPokemon from './components/CardPokemon';
@@ -18,26 +21,43 @@ import {
 } from './style';
 
 const Home = () => {
-  const pokemons = useSelector((state) => state);
+  // 🔰 Redux hooks
+  const pokemons = useSelector((state) => state.pokemons);
   const dispatch = useDispatch();
 
+  // 🔰 Page states
+  // eslint-disable-next-line no-unused-vars
+  const [elementSearch, setElementSearch] = useState(null);
   const [currentPokemon, setCurrentPokemon] = useState(null);
+
+  // 🔰 Download pokemon from api or get localStorage
+  useEffect(() => {
+    if (pokemons.length === 0) {
+      dispatch(downloadPokemon());
+    }
+  }, []);
 
   const onClickPokemon = (pokemon) => {
     setCurrentPokemon(pokemon);
   };
 
   const onSearch = (search) => {
-    console.log(search);
+    if (search === '') setCurrentPokemon(null);
+
+    const searchOutput = pokemons
+      .filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()));
+
+    setElementSearch(searchOutput);
   };
 
   const onClickBack = () => {
     setCurrentPokemon(null);
   };
 
-  useEffect(() => {
-    dispatch(downloadPokemon());
-  }, []);
+  const getPokemonList = () => {
+    if (elementSearch) return elementSearch;
+    return pokemons;
+  };
 
   return (
     <NavLayout>
@@ -52,11 +72,11 @@ const Home = () => {
         </SearchRowStyled>
 
         <PokemonGridStyled hidden={currentPokemon !== null}>
-          { pokemons.map((pokemon) => (
+          { getPokemonList().map((pokemon) => (
             <CardPokemon
               onClick={() => onClickPokemon(pokemon)}
               id={pokemon.id}
-              image={pokemon.sprites.other['official-artwork'].front_default}
+              image={pokemon.sprites?.other['official-artwork'].front_default}
               name={pokemon.name}
               type={pokemon.types}
               key={pokemon.id}

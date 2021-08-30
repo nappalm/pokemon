@@ -1,26 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, createStore } from 'redux';
-import pokemon from 'redux/pokemon';
+import pokemonReducer from 'redux/pokemon';
+
 import { Provider } from 'react-redux';
-
 import thunkMiddleware from 'redux-thunk';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
+import { PersistGate } from 'redux-persist/integration/react';
 import UserContext from './context/userContext';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyled from './styles/GlobalStyled';
 import Router from './router';
 
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
 const middleware = applyMiddleware(thunkMiddleware);
-const store = createStore(pokemon, middleware);
+
+const reducer = persistReducer(persistConfig, pokemonReducer);
+const store = createStore(reducer, middleware);
+const persistor = persistStore(store);
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <GlobalStyled />
-      <UserContext>
-        <Router />
-      </UserContext>
+      <PersistGate persistor={persistor}>
+        <GlobalStyled />
+        <UserContext>
+          <Router />
+        </UserContext>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

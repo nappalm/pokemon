@@ -1,11 +1,11 @@
 /* eslint-disable no-await-in-loop */
 // 🔰 Reducer
-export default (state = [], action) => {
+const initState = { pokemons: [] };
+export default (state = initState, action) => {
   if (action.type === '@download/pokemons') {
-    return [
-      ...state,
-      ...action.payload,
-    ];
+    return {
+      pokemons: action.payload,
+    };
   }
 
   return state;
