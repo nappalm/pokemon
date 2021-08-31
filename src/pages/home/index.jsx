@@ -33,7 +33,10 @@ const Home = () => {
   // 🔰 Download pokemon from api or get localStorage
   useEffect(() => {
     if (pokemons.length === 0) {
-      dispatch(downloadPokemon());
+      dispatch(downloadPokemon(() => {
+        // ✅ This function return the error code
+        // ✅ Validate errors in this scope
+      }));
     }
   }, []);
 
