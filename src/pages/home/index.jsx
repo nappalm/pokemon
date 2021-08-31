@@ -36,6 +36,7 @@ const Home = () => {
       dispatch(downloadPokemon(() => {
         // ✅ This function return the error code
         // ✅ Validate errors in this scope
+        alert('Se ha presentado un problema');
       }));
     }
   }, []);
