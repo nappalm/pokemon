@@ -41,6 +41,7 @@ export default styled.div.attrs({
     .nav-menu-logo
     .img-logo {
       height: 50px;
+      cursor: pointer;
     }
   }
   // 🔰 Nav responsive style

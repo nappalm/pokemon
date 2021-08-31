@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -17,6 +19,10 @@ const Nav = ({ children }) => {
     setMenu(!menu);
   };
 
+  const onClickLogoItem = () => {
+    window.location.href = '/';
+  };
+
   return (
     <NavStyled>
       <div className="nav-responsive">
@@ -29,13 +35,19 @@ const Nav = ({ children }) => {
               <img src={MenuIcon} alt="" />
             </button>
           </div>
-          <div className="nav-menu-logo">
+          <div
+            onClick={onClickLogoItem}
+            className="nav-menu-logo"
+          >
             <img src={Logo} alt="" className="img-logo" />
           </div>
         </div>
       </div>
       <div className={`nav-content ${menu ? ' show-menu' : ''}`}>
-        <div className="nav-menu-logo">
+        <div
+          onClick={onClickLogoItem}
+          className="nav-menu-logo"
+        >
           <img src={Logo} alt="" className="img-logo" />
         </div>
         {children}
