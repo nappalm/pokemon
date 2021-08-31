@@ -22,7 +22,7 @@ const persistConfig = {
 const middleware = applyMiddleware(thunkMiddleware);
 
 const reducer = persistReducer(persistConfig, pokemonReducer);
-const store = createStore(reducer, middleware);
+export const store = createStore(reducer, middleware);
 const persistor = persistStore(store);
 
 ReactDOM.render(
