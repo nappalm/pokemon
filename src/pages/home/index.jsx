@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 import { BackButton } from 'components';
@@ -46,7 +47,7 @@ const Home = () => {
   };
 
   const onSearch = (search) => {
-    if (search === '') setCurrentPokemon(null);
+    if (search === '' || currentPokemon !== null) setCurrentPokemon(null);
 
     const searchOutput = pokemons
       .filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()));
